@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rarafaza5</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background: #0d0d0d;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #0b0b0b;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border-bottom: 1px solid #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: 500;
+            color: #00ffcc;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+        }
+
+        header nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        header nav a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 1px solid #00ffcc;
+            border-radius: 4px;
+            transition: background 0.3s, color 0.3s, transform 0.2s ease-in-out;
+        }
+
+        header nav a:hover {
+            background: #00ffcc;
+            color: #000;
+        }
+
+        header nav a:active {
+            transform: scale(0.95);
+        }
+
+        .welcome {
+            background: #161616;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            color: #00ffcc;
+            border-bottom: 1px solid #333;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .welcome.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .welcome h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+        }
+
+        .welcome p {
+            font-size: 1.2em;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 60px 0;
+            flex-grow: 1;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .intro {
+            text-align: center;
+            padding-bottom: 40px;
+        }
+
+        .intro h2 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            font-weight: 400;
+            color: #00ffcc;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+        }
+
+        .intro p {
+            font-size: 1.2em;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .project {
+            background: #161616;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            text-decoration: none;
+        }
+
+        .project.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
+            border-color: #00ffcc;
+        }
+
+        .project img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+
+        .project:hover img {
+            transform: scale(1.05);
+        }
+
+        .project h3 {
+            margin: 20px 0;
+            font-size: 1.6em;
+            font-weight: 400;
+            color: #00ffcc;
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s;
+        }
+
+        .project h3::after {
+            content: "";
+            display: block;
+            height: 2px;
+            background: linear-gradient(to right, #ff0000, #ff00ff, #00ffff, #00ff00, #ffff00);
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .project:hover h3::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .project p {
+            color: #b0b0b0;
+        }
+
+        .contact {
+            background: #0b0b0b;
+            color: #fff;
+            padding: 50px 0;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border-top: 1px solid #333;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .contact.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: 400;
+            color: #00ffcc;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+        }
+
+        .contact p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        .contact a,
+        .contact button {
+            color: #00ffcc;
+            text-decoration: none;
+            font-weight: 500;
+            border: 1px solid #00ffcc;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: background 0.3s, color 0.3s, transform 0.2s ease-in-out;
+            display: inline-block;
+            margin: 10px;
+            cursor: pointer;
+            background: transparent;
+            font-size: 1.2em;
+        }
+
+        .contact a:hover,
+        .contact button:hover {
+            background: #00ffcc;
+            color: #000;
+        }
+
+        .contact a:active,
+        .contact button:active {
+            transform: scale(0.95);
+        }
+
+        .contact .social-icons {
+            margin-top: 30px;
+        }
+
+        .contact .social-icons a {
+            color: #00ffcc;
+            margin: 0 15px;
+            font-size: 2em;
+            transition: color 0.3s, transform 0.2s ease-in-out;
+        }
+
+        .contact .social-icons a:hover {
+            color: #fff;
+        }
+
+        .contact .social-icons a:active {
+            transform: scale(0.95);
+        }
+
+        footer {
+            background: #0b0b0b;
+            color: #666;
+            text-align: center;
+            padding: 15px 0;
+            border-top: 1px solid #333;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        footer.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ffcc;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+            z-index: 1000;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .popup.visible {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Rarafaza5</h1>
+        <nav>
+            <a href="#projects">Projetos</a>
+            <a href="#contact">Contato</a>
+            <a href="https://github.com/Rarafaza5"><i class="fab fa-github"></i> GitHub</a>
+        </nav>
+    </header>
+
+    <section id="home" class="welcome">
+        <h2>Olá!👋</h2>
+        <p>Eu sou o Rarafaza5</p>
+    </section>
+
+    <div id="projects" class="container">
+        <section class="intro">
+            <h2>Projetos:</h2>
+            <p>Vê os projetos. :)</p>
+        </section>
+
+        <section class="projects">
+            <a href="projeto1.html" class="project">
+                <img src="armindologo.png" alt="Projeto 1">
+                <h3>ArmindoBot</h3>
+                <p>Um bot discord.py opensource com algumas mensagens engraçadas</p>
+            </a>
+        </section>
+    </div>
+
+    <section id="contact" class="contact">
+        <h2>Entre em Contato</h2>
+        <p>Discord: <button id="copyButton">Rarafaza5</button></p>
+        <div class="social-icons">
+            <a href="https://github.com/Rarafaza5"><i class="fab fa-github"></i></a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Portfólio. Todos os direitos reservados.</p>
+    </footer>
+
+    <div class="popup" id="popup">Texto copiado para o clipboard!</div>
+
+    <script>
+        // Intersection Observer
+        const elements = document.querySelectorAll('.welcome, .container, .project, .contact, footer');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+
+        elements.forEach(element => {
+            observer.observe(element);
+        });
+
+        window.addEventListener('load', () => {
+            document.querySelector('header h1').classList.add('visible');
+        });
+
+        // Copiar para o clipboard e popup
+        let copyCount = 0;
+        const maxCopyCount = 3;
+        const felizCopyCount = 5;
+        const ipercopia = 7;
+        const continente = 10;
+
+        document.getElementById('copyButton').addEventListener('click', () => {
+            const text = 'Rarafaza5';
+            navigator.clipboard.writeText(text).then(() => {
+                copyCount++;
+                const popup = document.getElementById('popup');
+
+                if (copyCount >= maxCopyCount && copyCount < felizCopyCount) {
+                    popup.textContent = 'SUPER COPIADO!';
+                } else if (copyCount === felizCopyCount) {
+                    popup.textContent = 'ULTRA COPIADO!!!';
+                } else if (copyCount == ipercopia) {
+                    popup.textContent = 'HIPER COPIADO!!!!!'
+                } else if (copyCount >= continente) {
+                    popup.textContent = 'A MAIOR COPIA DO UNIVERSO!!!!!!!!!'
+                } else {
+                    popup.textContent = 'Texto copiado para o clipboard!';
+                }
+
+                popup.classList.add('visible');
+                setTimeout(() => {
+                    popup.classList.remove('visible');
+                }, 2000);
+            }).catch(err => console.error('Erro ao copiar para o clipboard: ', err));
+        });
+
+        // Adicionando animação de clique
+        const navLinks = document.querySelectorAll('header nav a, .contact a, .contact button');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                link.classList.add('clicked');
+                setTimeout(() => link.classList.remove('clicked'), 300);
+            });
+        });
+    </script>
+
+</body>
+
+</html>
